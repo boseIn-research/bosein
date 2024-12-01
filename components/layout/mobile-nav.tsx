@@ -60,19 +60,20 @@ export function NavMobile() {
         )}
       >
         <ul className="grid divide-y divide-muted">
-          {links && links.length > 0 && links.map(({ title, href }) => (
-            <li key={href} className="py-3">
-              <Link
-                href={href}
-                onClick={() => setOpen(false)}
-                className="flex w-full font-medium capitalize"
-              >
-                {title}
-              </Link>
-            </li>
-          ))}
-
-          {session ? (
+          {/* {links &&
+            links.length > 0 &&
+            links.map(({ title, href }) => (
+              <li key={href} className="py-3">
+                <Link
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  className="flex w-full font-medium capitalize"
+                >
+                  {title}
+                </Link>
+              </li>
+            ))} */}
+          {/* {session ? (
             <>
               {session.user.role === "ADMIN" ? (
                 <li className="py-3">
@@ -118,20 +119,20 @@ export function NavMobile() {
                 </Link>
               </li>
             </>
-          )}
+          )} */}
         </ul>
-
+        {/* 
         {documentation ? (
           <div className="mt-8 block md:hidden">
             <DocsSidebarNav setOpen={setOpen} />
           </div>
-        ) : null}
+        ) : null} */}
 
         <div className="mt-5 flex items-center justify-end space-x-4">
-          <Link href={siteConfig.links.github} target="_blank" rel="noreferrer">
+          {/* <Link href={siteConfig.links.github} target="_blank" rel="noreferrer">
             <Icons.gitHub className="size-6" />
             <span className="sr-only">GitHub</span>
-          </Link>
+          </Link> */}
           <ModeToggle />
         </div>
       </nav>
