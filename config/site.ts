@@ -8,12 +8,13 @@ export const siteConfig: SiteConfig = {
   description:
     "At BoseIn, we're on a mission to democratise research. We understand the value of your expertise and the impact your research can have on real-world challenges. We offer Research as a Service (RAAS)— an innovative solution designed to support businesses and academic researchers with their R&D needs, without the hefty price tag typically associated with traditional research. ",
   url: site_url,
-  ogImage: `${site_url}/_static/og.jpg`,
+  ogImage: `${site_url}/_static/og.png`,
   links: {
     twitter: "https://twitter.com/miickasmt",
-    github: "https://github.com/mickasmt/next-saas-stripe-starter",
+    github: "https://github.com/boseIn-research",
     linkedin: "https://www.linkedin.com/company/bosein-org/",
   },
+  domain: "bosein.com",
   mailSupport: "operations@bosein.com",
 };
 
