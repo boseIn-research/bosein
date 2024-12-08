@@ -14,6 +14,7 @@ export type SiteConfig = {
     github: string;
     linkedin: string;
   };
+  domain: string;
 };
 
 export type NavItem = {
