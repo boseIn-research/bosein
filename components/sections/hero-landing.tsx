@@ -1,29 +1,12 @@
 import Link from "next/link";
 import { LinkedinIcon } from "lucide-react";
 
-import { env } from "@/env.mjs";
 import { siteConfig } from "@/config/site";
 import { cn, nFormatter } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
 
 export default async function HeroLanding() {
-  const { stargazers_count: stars } = await fetch(
-    "https://api.github.com/repos/mickasmt/next-saas-stripe-starter",
-    {
-      ...(env.GITHUB_OAUTH_TOKEN && {
-        headers: {
-          Authorization: `Bearer ${process.env.GITHUB_OAUTH_TOKEN}`,
-          "Content-Type": "application/json",
-        },
-      }),
-      // data will revalidate every hour
-      next: { revalidate: 3600 },
-    },
-  )
-    .then((res) => res.json())
-    .catch((e) => console.log(e));
-
   return (
     <section className="space-y-6 py-12 sm:py-20 lg:py-20">
       <div className="container flex max-w-5xl flex-col items-center gap-5 text-center">

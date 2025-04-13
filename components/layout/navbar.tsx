@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import { LinkedinIcon } from "lucide-react";
-import { useSession } from "next-auth/react";
+
+// import { useSession } from "next-auth/react";
 
 import { docsConfig } from "@/config/docs";
 import { marketingConfig } from "@/config/marketing";
@@ -15,7 +16,7 @@ import { useScroll } from "@/hooks/use-scroll";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DocsSearch } from "@/components/docs/search";
-import { ModalContext } from "@/components/modals/providers";
+// import { ModalContext } from "@/components/modals/providers";
 import { Icons } from "@/components/shared/icons";
 import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
 
@@ -26,8 +27,8 @@ interface NavBarProps {
 
 export function NavBar({ scroll = false }: NavBarProps) {
   const scrolled = useScroll(50);
-  const { data: session, status } = useSession();
-  const { setShowSignInModal } = useContext(ModalContext);
+  // const { data: session, status } = useSession();
+  // const { setShowSignInModal } = useContext(ModalContext);
 
   const selectedLayout = useSelectedLayoutSegment();
   const documentation = selectedLayout === "docs";
@@ -59,27 +60,6 @@ export function NavBar({ scroll = false }: NavBarProps) {
             />
             {/* <span className="font-urban text-xl font-bold">BoseIn</span> */}
           </Link>
-
-          {/* {links && links.length > 0 ? (
-            <nav className="hidden gap-6 md:flex">
-              {links.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.disabled ? "#" : item.href}
-                  prefetch={true}
-                  className={cn(
-                    "flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm",
-                    item.href.startsWith(`/${selectedLayout}`)
-                      ? "text-foreground"
-                      : "text-foreground/60",
-                    item.disabled && "cursor-not-allowed opacity-80",
-                  )}
-                >
-                  {item.title}
-                </Link>
-              ))}
-            </nav>
-          ) : null} */}
         </div>
 
         <div className="flex items-center space-x-3">

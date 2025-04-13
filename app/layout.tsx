@@ -1,13 +1,13 @@
 import "@/styles/globals.css";
 
 import { fontGeist, fontHeading, fontSans, fontUrban } from "@/assets/fonts";
-import { SessionProvider } from "next-auth/react";
+// import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 
 import { cn, constructMetadata } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@/components/analytics";
-import ModalProvider from "@/components/modals/providers";
+// import ModalProvider from "@/components/modals/providers";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 
 interface RootLayoutProps {
@@ -29,19 +29,18 @@ export default function RootLayout({ children }: RootLayoutProps) {
           fontGeist.variable,
         )}
       >
-        <SessionProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <ModalProvider>{children}</ModalProvider>
+        {/* <SessionProvider> */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
 
-            <Toaster richColors closeButton />
-            <TailwindIndicator />
-          </ThemeProvider>
-        </SessionProvider>
+          <Toaster richColors closeButton />
+          <TailwindIndicator />
+        </ThemeProvider>
       </body>
     </html>
   );

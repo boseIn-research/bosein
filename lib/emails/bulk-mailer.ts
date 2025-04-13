@@ -1,7 +1,6 @@
 import { SurveyInviteEmail } from "@/emails/survey-invite-email";
 import { Resend } from "resend";
 
-import { env } from "@/env.mjs";
 import { siteConfig } from "@/config/site";
 
 const resend = new Resend(env.RESEND_API_KEY);

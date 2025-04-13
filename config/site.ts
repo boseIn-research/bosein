@@ -1,16 +1,15 @@
 import { SidebarNavItem, SiteConfig } from "types";
-import { env } from "@/env.mjs";
 
-const site_url = env.NEXT_PUBLIC_APP_URL;
+// const "https://bosein.com", = env.NEXT_PUBLIC_APP_URL;
 
 export const siteConfig: SiteConfig = {
   name: "BoseIn - Unlocking Tommorrow's Innovations, Today",
   description:
     "At BoseIn, we're on a mission to democratise research. We understand the value of your expertise and the impact your research can have on real-world challenges. We offer Research as a Service (RAAS)— an innovative solution designed to support businesses and academic researchers with their R&D needs, without the hefty price tag typically associated with traditional research. ",
-  url: site_url,
-  ogImage: `${site_url}/_static/og.png`,
+  url: "https://bosein.com",
+  ogImage: `${"https://bosein.com"}/_static/og.png`,
   links: {
-    twitter: "https://twitter.com/miickasmt",
+    twitter: "https://twitter.com/bosein",
     github: "https://github.com/boseIn-research",
     linkedin: "https://www.linkedin.com/company/bosein-org/",
   },
