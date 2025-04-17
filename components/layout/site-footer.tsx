@@ -5,7 +5,6 @@ import { footerLinks, siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "@/components/layout/mode-toggle";
 
-import { NewsletterForm } from "../forms/newsletter-form";
 import { Icons } from "../shared/icons";
 
 export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
@@ -39,7 +38,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
       <div className="border-t py-4">
         <div className="container flex max-w-6xl items-center justify-between">
           <span className="text-sm text-muted-foreground">
-            Copyright &copy; 2024. All rights reserved BoseIn.
+            Copyright &copy; 2025. All rights reserved BoseIn.
           </span>
 
           <div className="flex items-center gap-3">

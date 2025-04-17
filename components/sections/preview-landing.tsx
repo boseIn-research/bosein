@@ -1,15 +1,29 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { sendEmail } from "@/actions/send-mail";
 import {
+  AlertCircle,
   BarChart3,
   Building,
   CheckCircle,
+  CheckCircle2,
   GraduationCap,
   Lightbulb,
+  Mail,
+  PhoneCall,
   Shield,
 } from "lucide-react";
+import { useTheme } from "next-themes";
 
+import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
 
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -18,34 +32,83 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 import { Timeline } from "../ui/timeline";
+import { Toaster } from "../ui/toaster";
+import { toast } from "../ui/use-toast";
 import Waves from "../ui/waves";
 
 export default function PreviewLanding() {
-  // {
-  //   step: "01",
-  //   title: "Submit Research Needs",
-  //   description:
-  //     "Startups define their research challenges and requirements",
-  // },
-  // {
-  //   step: "02",
-  //   title: "Match with Researchers",
-  //   description:
-  //     "Our App matches your needs with qualified academics",
-  // },
-  // {
-  //   step: "03",
-  //   title: "Collaborative Research",
-  //   description:
-  //     "Structured collaboration with clear milestones and deliverables",
-  // },
-  // {
-  //   step: "04",
-  //   title: "Implement Insights",
-  //   description:
-  //     "Turn research findings into actionable innovations",
-  // },
+  const currentTheme = useTheme();
+
+  const { theme } = currentTheme;
+  const [organizationType, setOrganizationType] = useState<
+    "company" | "academia"
+  >("company");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [formStatus, setFormStatus] = useState<{
+    success?: boolean;
+    message?: string;
+  } | null>(null);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    organizationName: "",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormStatus(null);
+
+    try {
+      // Prepare the data for submission
+      const dataToSubmit = {
+        ...formData,
+        organizationType,
+        organizationName: formData.organizationName,
+      };
+
+      // Send the email
+      const result = await sendEmail(dataToSubmit);
+
+      setFormStatus(result);
+
+      if (result.success) {
+        // Reset form on success
+        setFormData({
+          name: "",
+          email: "",
+          organizationName: "",
+          message: "",
+        });
+
+        toast({
+          title: "Success!",
+          description: "Your message has been sent successfully.",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setFormStatus({
+        success: false,
+        message: "An unexpected error occurred. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const data = [
     {
@@ -66,10 +129,10 @@ export default function PreviewLanding() {
       content: (
         <div>
           <h2 className="mb-2 text-2xl font-normal text-neutral-800 dark:text-neutral-200">
-            Match with Researchers
+            Match With Researchers
           </h2>
           <p className="text-xs font-normal text-neutral-800 dark:text-neutral-200 md:text-sm">
-            Our App matches your needs with qualified academics
+            Our app matches your needs with qualified academics
           </p>
         </div>
       ),
@@ -92,6 +155,20 @@ export default function PreviewLanding() {
       content: (
         <div>
           <h2 className="mb-2 text-2xl font-normal text-neutral-800 dark:text-neutral-200">
+            Use Our Platform
+          </h2>
+          <p className="text-xs font-normal text-neutral-800 dark:text-neutral-200 md:text-sm">
+            Organize, assign, and track research tasks in real-time—centralize
+            data, enable reuse, and visualize progress, all in one place
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: "05",
+      content: (
+        <div>
+          <h2 className="mb-2 text-2xl font-normal text-neutral-800 dark:text-neutral-200">
             Implement Insights
           </h2>
           <p className="text-xs font-normal text-neutral-800 dark:text-neutral-200 md:text-sm">
@@ -104,21 +181,22 @@ export default function PreviewLanding() {
 
   return (
     <MaxWidthWrapper>
-      <section className="rounded-xl border bg-white py-12 transition-all duration-200 hover:shadow-xl md:py-16">
+      <Toaster />
+      <section className="rounded-xl border bg-white py-12 transition-all duration-200 hover:shadow-xl dark:bg-muted md:py-16">
         <div className="container px-4 md:px-6">
           <div className="mx-auto max-w-3xl space-y-4 text-center">
             <h2 className="text-4xl font-bold tracking-tighter">
-              Problem Statement
+              Why We Exist !!
             </h2>
             <p className="text-lg text-muted-foreground">
-              Startups struggle to access specialized research expertise without
-              the burden of full-time hires, while academic researchers seek
-              real-world applications for their knowledge.
+              Startups need expert research insights but can’t afford full-time
+              hires. Meanwhile, academics crave real-world impact for their
+              work.
             </p>
             <p className="text-lg text-muted-foreground">
-              This disconnect creates a significant innovation gap, limiting
-              both business growth and academic impact in today&apos;s knowledge
-              economy.
+              This disconnect creates a critical innovation gap — slowing down
+              business growth and limiting the real-world impact of academic
+              insights in today&apos;s knowledge-driven economy.
             </p>
           </div>
         </div>
@@ -135,6 +213,10 @@ export default function PreviewLanding() {
               with academic researchers, creating a seamless Research as a
               Service ecosystem.
             </p>
+            <code className="bg-muted text-lg font-semibold italic text-muted-foreground">
+              &quot;Accelerating research by reusing proven insights and
+              leveraging past experiments done by our Researchers&quot;
+            </code>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
@@ -186,12 +268,12 @@ export default function PreviewLanding() {
       {/* How It Works */}
       <section
         id="how-it-works"
-        className="rounded-xl border bg-white py-12 transition-all duration-200 hover:shadow-xl md:py-16"
+        className="rounded-xl border bg-white py-12 transition-all duration-200 hover:shadow-xl dark:bg-muted md:py-16"
       >
         <div className="container px-4 md:px-6">
           <div className="mx-auto mb-10 max-w-3xl space-y-4 text-center">
             <h2 className="text-4xl font-bold tracking-tighter">
-              How It Works
+              Your Research Journey, Simplified !!
             </h2>
             <p className="text-lg text-muted-foreground">
               Our streamlined process makes research collaboration simple and
@@ -208,7 +290,9 @@ export default function PreviewLanding() {
       <section id="benefits" className="py-12 md:py-16">
         <div className="container px-4 md:px-6">
           <div className="mx-auto mb-10 max-w-3xl space-y-4 text-center">
-            <h2 className="text-4xl font-bold tracking-tighter">Benefits</h2>
+            <h2 className="text-4xl font-bold tracking-tighter">
+              Mutual Wins: Startups × Researchers
+            </h2>
             <p className="text-lg text-muted-foreground">
               Creating value for both startups and academic researchers
             </p>
@@ -217,7 +301,7 @@ export default function PreviewLanding() {
             <Card className="rounded-xl transition-all duration-200 hover:shadow-xl">
               <CardHeader>
                 <div className="mb-2 flex items-center gap-2">
-                  <Building className="h-5 w-5 text-primary" />
+                  <Building className="size-5 text-primary" />
                   <CardTitle>For Startups</CardTitle>
                 </div>
               </CardHeader>
@@ -226,11 +310,11 @@ export default function PreviewLanding() {
                   "Cost-effective R&D without full-time hires",
                   "Access to specialized expertise across multiple domains",
                   "Academic rigor applied to business challenges",
-                  "Innovation acceleration through proven research methodologies",
+                  "Fastrack innovation through proven research methodologies",
                   "Competitive intelligence and market insights",
                 ].map((benefit, index) => (
                   <div key={index} className="flex items-start gap-2">
-                    <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                    <CheckCircle className="mt-0.5 size-5 shrink-0 text-primary" />
                     <p>{benefit}</p>
                   </div>
                 ))}
@@ -239,7 +323,7 @@ export default function PreviewLanding() {
             <Card className="rounded-xl transition-all duration-200 hover:shadow-xl">
               <CardHeader>
                 <div className="mb-2 flex items-center gap-2">
-                  <GraduationCap className="h-5 w-5 text-primary" />
+                  <GraduationCap className="size-5 text-primary" />
                   <CardTitle>For Academics</CardTitle>
                 </div>
               </CardHeader>
@@ -252,7 +336,7 @@ export default function PreviewLanding() {
                   "Practical application of theoretical knowledge",
                 ].map((benefit, index) => (
                   <div key={index} className="flex items-start gap-2">
-                    <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                    <CheckCircle className="mt-0.5 size-5 shrink-0 text-primary" />
                     <p>{benefit}</p>
                   </div>
                 ))}
@@ -267,29 +351,40 @@ export default function PreviewLanding() {
         <div className="container z-10 rounded-xl px-4 md:px-6">
           <div className="grid items-center gap-6 lg:grid-cols-2">
             <div className="space-y-4">
-              <h2 className="text-4xl font-bold tracking-tighter sm:text-3xl">
+              <h2 className="text-4xl font-bold tracking-tighter dark:text-primary sm:text-3xl">
                 Ready to Transform Your Research Approach?
               </h2>
-              <p className="text-lg text-muted-foreground">
-                Join Bosein today and connect with the perfect research partners
-                for your innovation journey.
+              <p className="text-muted- text-lg dark:text-white">
+                Join BoseIn today to collaborate on real-world challenges.
               </p>
             </div>
             <div className="flex flex-col justify-center gap-3 sm:flex-row lg:justify-end">
-              <Button size="lg" className="sm:w-auto">
-                Post Your Research Challenge
+              <Button size="lg" className="hover:primary/80 sm:w-auto">
+                <Link href="https://docs.google.com/forms/d/1WPolnbnoZGLqolOui4c0DZL9sJHYRNTGZ1OtVpZKUAM/edit">
+                  For Startups / Companies
+                </Link>
               </Button>
-              <Button variant="outline" size="lg" className="sm:w-auto">
-                Join Our Researcher Network
+              <Button
+                variant="outline"
+                size="lg"
+                className="bg-[#97ACBA] hover:bg-[#6c7981] sm:w-auto"
+              >
+                <Link href="https://docs.google.com/forms/d/1_F_irxRsLVLIbGGd7l3KqrJTmXPVrO683OmTQK2sj9I/edit">
+                  For Academia / Researchers
+                </Link>
               </Button>
             </div>
           </div>
         </div>
         <Waves
           className="-z-10 shadow-xl"
-          lineColor="#e5e7eb"
+          // lineColor={cn(`#e5e7eb `, {
+          //   dark: "#000",
+
+          // })}
+          lineColor={theme === "dark" ? "#000" : "#e5e7eb"}
           backgroundColor="rgba(255, 255, 255, 0.2)"
-          waveSpeedX={0.02}
+          waveSpeedX={0.03}
           waveSpeedY={0.01}
           waveAmpX={40}
           waveAmpY={20}
@@ -324,7 +419,7 @@ export default function PreviewLanding() {
       </section>
 
       {/* FAQ Section */}
-      <section className="rounded-xl border bg-white py-12 md:py-16">
+      <section className="rounded-xl border bg-white py-12 dark:bg-muted/20 md:py-16">
         <div className="container px-4 md:px-6">
           <div className="mx-auto mb-10 max-w-3xl space-y-4 text-center">
             <h2 className="text-4xl font-bold tracking-tighter">
@@ -349,9 +444,9 @@ export default function PreviewLanding() {
                   "Any startup facing complex challenges that require specialized knowledge can benefit, particularly those in tech, healthcare, finance, and manufacturing.",
               },
               {
-                question: "How quickly can research projects be completed?",
+                question: "How quickly can  projects be completed?",
                 answer:
-                  "Timelines vary based on project complexity. Simple projects may take 2-4 weeks, while comprehensive research initiatives might span several months.",
+                  "Timelines depend on project complexity. While simple projects may take 2–4 weeks, more comprehensive initiatives can span several months. However, we can fast-track progress by breaking down your problem into focused chunks, enabling multiple researchers to work in parallel.",
               },
               {
                 question: "How is data security maintained?",
@@ -389,11 +484,24 @@ export default function PreviewLanding() {
               </h2>
               <p className="text-muted-foreground">
                 Have questions or ready to start? Our team is here to help you
-                navigate your research journey.
+                to navigate your research journey
               </p>
               <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <p>operations@bosein.com</p>
+                <div className="flex flex-col items-start gap-2">
+                  <a
+                    href="mailto:operations@bosein.com"
+                    className="flex items-center gap-x-2 rounded-xl bg-gray-300 px-2 dark:bg-gray-800 dark:text-primary"
+                  >
+                    <Mail className="size-5 text-black dark:text-primary" />
+                    operations@bosein.com
+                  </a>
+                  {/* <a
+                    href="tel:+918409783307"
+                    className="flex items-center gap-x-2 rounded-xl bg-gray-300 px-2 dark:bg-gray-800 dark:text-primary"
+                  >
+                    <PhoneCall className="size-5 text-black dark:text-primary" />
+                    +91 8409783307
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -406,63 +514,115 @@ export default function PreviewLanding() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-4">
-                  <div className="grid gap-4 sm:grid-cols-2">
+                {/* {formStatus && (
+                  <Alert
+                    className={`mb-6 ${formStatus.success ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"}`}
+                  >
+                    {formStatus.success ? (
+                      <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    ) : (
+                      <AlertCircle className="h-4 w-4 text-red-600" />
+                    )}
+                    <AlertTitle>
+                      {formStatus.success ? "Success" : "Error"}
+                    </AlertTitle>
+                    <AlertDescription>{formStatus.message}</AlertDescription>
+                  </Alert>
+                )} */}
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     <div className="space-y-2">
-                      <label
-                        htmlFor="name"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        Name
-                      </label>
-                      <input
+                      <Label htmlFor="name">Name</Label>
+                      <Input
                         id="name"
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         placeholder="Your name"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
                       />
                     </div>
+
                     <div className="space-y-2">
-                      <label
-                        htmlFor="email"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        Email
-                      </label>
-                      <input
+                      <Label htmlFor="email">Email</Label>
+                      <Input
                         id="email"
                         type="email"
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         placeholder="Your email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
+
                   <div className="space-y-2">
-                    <label
-                      htmlFor="company"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    <Label>Organization Type</Label>
+                    <RadioGroup
+                      value={organizationType}
+                      onValueChange={(value) =>
+                        setOrganizationType(value as "company" | "academia")
+                      }
+                      className="flex space-x-4"
                     >
-                      Company
-                    </label>
-                    <input
-                      id="company"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                      placeholder="Your company"
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="company" id="company" />
+                        <Label htmlFor="company">Company</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="academia" id="academia" />
+                        <Label htmlFor="academia">Academia</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
+                  <div className="space-y-2">
+                    {organizationType === "company" ? (
+                      <>
+                        <Label htmlFor="organizationName">Company Name</Label>
+                        <Input
+                          id="organizationName"
+                          placeholder="Your company"
+                          required
+                          value={formData.organizationName}
+                          onChange={handleChange}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <Label htmlFor="organizationName">
+                          College/Institute Name
+                        </Label>
+                        <Input
+                          id="organizationName"
+                          placeholder="Your college or institute"
+                          required
+                          value={formData.organizationName}
+                          onChange={handleChange}
+                        />
+                      </>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea
+                      id="message"
+                      placeholder="Your message"
+                      className="min-h-[150px]"
+                      required
+                      value={formData.message}
+                      onChange={handleChange}
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="message"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                      placeholder="Your message"
-                    ></textarea>
-                  </div>
-                  <Button className="w-full">Send Message</Button>
+
+                  <Button
+                    type="submit"
+                    className="w-full bg-yellow-400 text-black hover:bg-yellow-500"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </Button>
                 </form>
               </CardContent>
             </Card>
