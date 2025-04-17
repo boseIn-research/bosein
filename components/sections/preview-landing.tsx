@@ -268,7 +268,7 @@ export default function PreviewLanding() {
       {/* How It Works */}
       <section
         id="how-it-works"
-        className="rounded-xl border bg-white py-12 transition-all duration-200 hover:shadow-xl dark:bg-muted md:py-16"
+        className="rounded-xl border bg-white py-12 transition-all duration-200 hover:shadow-xl dark:bg-muted/20 md:py-16"
       >
         <div className="container px-4 md:px-6">
           <div className="mx-auto mb-10 max-w-3xl space-y-4 text-center">
