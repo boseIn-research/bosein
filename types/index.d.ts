@@ -13,6 +13,8 @@ export type SiteConfig = {
     twitter: string;
     github: string;
     linkedin: string;
+    instagram: string;
+    whatsapp: string;
   };
   domain: string;
 };

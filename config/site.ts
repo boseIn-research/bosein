@@ -5,13 +5,15 @@ import { SidebarNavItem, SiteConfig } from "types";
 export const siteConfig: SiteConfig = {
   name: "BoseIn - Unlocking Tommorrow's Innovations, Today",
   description:
-    "At BoseIn, we're on a mission to democratise research. We understand the value of your expertise and the impact your research can have on real-world challenges. We offer Research as a Service (RAAS)— an innovative solution designed to support businesses and academic researchers with their R&D needs, without the hefty price tag typically associated with traditional research. ",
+    "Founded with a vision to establish India as a global research hub, Bosein is committed to bridging the gap between academic excellence and industry innovation.    Our team combines expertise in research, technology, and business to create a platform that democratizes access to specialized knowledge while upholding the highest standards of ethical research practices.",
   url: "https://bosein.com",
-  ogImage: `${"https://bosein.com"}/_static/og.png`,
+  ogImage: `https://bosein.com/_static/og.png`,
   links: {
-    twitter: "https://twitter.com/bosein",
+    twitter: "https://x.com/BoseIn_Research",
     github: "https://github.com/boseIn-research",
     linkedin: "https://www.linkedin.com/company/bosein-org/",
+    instagram: "https://www.instagram.com/bosein_research/",
+    whatsapp: "https://wa.me/916204011615",
   },
   domain: "bosein.com",
   mailSupport: "operations@bosein.com",
@@ -20,12 +22,7 @@ export const siteConfig: SiteConfig = {
 export const footerLinks: SidebarNavItem[] = [
   {
     title: "Company",
-    items: [
-      { title: "About", href: "#about" },
-
-      // { title: "Terms", href: "#" },
-      // { title: "Privacy", href: "#" },
-    ],
+    items: [{ title: "About", href: "#about" }],
   },
   // {
   //   title: "Product",

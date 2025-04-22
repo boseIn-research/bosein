@@ -125,7 +125,40 @@ const config = {
             opacity: "1",
           },
         },
+        // Aurora effect
+        aurora: {
+          "0%": {
+            "background-position": "0% 50%",
+            transform: "rotate(-5deg) scale(0.9)",
+          },
+          "25%": {
+            "background-position": "50% 100%",
+            transform: "rotate(5deg) scale(1.1)",
+          },
+          "50%": {
+            "background-position": "100% 50%",
+            transform: "rotate(-3deg) scale(0.95)",
+          },
+          "75%": {
+            "background-position": "50% 0%",
+            transform: "rotate(3deg) scale(1.05)",
+          },
+          "100%": {
+            "background-position": "0% 50%",
+            transform: "rotate(-5deg) scale(0.9)",
+          },
+        },
+        // Line shadow effect
+        "line-shadow": {
+          "0%": {
+            "background-position": "0 0",
+          },
+          "100%": {
+            "background-position": "100% -100%",
+          },
+        },
       },
+
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
@@ -137,6 +170,11 @@ const config = {
         // Fade in and out
         "fade-in": "fade-in 0.4s",
         "fade-out": "fade-out 0.4s",
+
+        // Aurora effect
+        aurora: "aurora 10s ease infinite",
+        // Line shadow effect
+        "line-shadow": "line-shadow 15s linear infinite",
       },
     },
   },

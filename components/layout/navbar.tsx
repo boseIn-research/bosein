@@ -8,7 +8,6 @@ import { LinkedinIcon } from "lucide-react";
 
 // import { useSession } from "next-auth/react";
 
-import { docsConfig } from "@/config/docs";
 import { marketingConfig } from "@/config/marketing";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -33,12 +32,7 @@ export function NavBar({ scroll = false }: NavBarProps) {
   const selectedLayout = useSelectedLayoutSegment();
   const documentation = selectedLayout === "docs";
 
-  const configMap = {
-    docs: docsConfig.mainNav,
-  };
-
-  const links =
-    (selectedLayout && configMap[selectedLayout]) || marketingConfig.mainNav;
+  const links = marketingConfig.mainNav;
 
   return (
     <header
@@ -58,7 +52,6 @@ export function NavBar({ scroll = false }: NavBarProps) {
               height={40}
               alt="BoseIn logo"
             />
-            {/* <span className="font-urban text-xl font-bold">BoseIn</span> */}
           </Link>
         </div>
 
@@ -103,43 +96,6 @@ export function NavBar({ scroll = false }: NavBarProps) {
               LinkedIn{" "}
             </p>
           </Link>
-          {/* {session ? (
-            <Link
-              href={session.user.role === "ADMIN" ? "/admin" : "/dashboard"}
-              className="hidden md:block"
-            >
-              <Button
-                className="gap-2 px-5"
-                variant="default"
-                size="sm"
-                rounded="full"
-              >
-                <span>Dashboard</span>
-              </Button>
-            </Link>
-          ) : status === "unauthenticated" ? (
-            <Link
-              href={siteConfig.links.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className={cn(
-                buttonVariants({
-                  variant: "outline",
-                  size: "lg",
-                  rounded: "full",
-                }),
-                "flex items-center space-x-2",
-              )}
-            >
-              <LinkedinIcon className="size-6" />
-              <p>
-                <span className="hidden sm:inline-block">Connect on</span>{" "}
-                LinkedIn{" "}
-              </p>
-            </Link>
-          ) : (
-            <Skeleton className="hidden h-9 w-28 rounded-full lg:flex" />
-          )} */}
         </div>
       </MaxWidthWrapper>
     </header>

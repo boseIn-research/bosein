@@ -38,20 +38,55 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
       <div className="border-t py-4">
         <div className="container flex max-w-6xl items-center justify-between">
           <span className="text-sm text-muted-foreground">
-            Copyright &copy; 2025. All rights reserved BoseIn.
+            Copyright &copy; 2025. All rights reserved{" "}
+            <span className="text-gradient_indigo-purple font-semibold">
+              BoseIn{" "}
+            </span>
           </span>
 
-          <div className="flex items-center gap-3">
-            {/* <Link
+          <div className="flex items-center gap-6">
+            <Link
               href={siteConfig.links.github}
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
             >
               <Icons.gitHub className="size-5" />
-            </Link> */}
-            <ModeToggle />
+            </Link>
+            <Link
+              href={siteConfig.links.twitter}
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium underline underline-offset-4"
+            >
+              <Icons.twitter className="size-5" />
+            </Link>
+            <Link
+              href={siteConfig.links.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium underline underline-offset-4"
+            >
+              <Icons.linkedin className="size-5" />
+            </Link>
+            <Link
+              href={siteConfig.links.instagram}
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium underline underline-offset-4"
+            >
+              <Icons.instagram className="size-5" />
+            </Link>
+            <Link
+              href={siteConfig.links.whatsapp}
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium underline underline-offset-4"
+            >
+              <Icons.whatsapp className="size-5" />
+            </Link>
           </div>
+          <ModeToggle />
         </div>
       </div>
     </footer>
