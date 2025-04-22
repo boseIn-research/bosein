@@ -1,29 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { sendEmail } from "@/actions/send-mail";
 import {
-  AlertCircle,
   BarChart3,
   Building,
   CheckCircle,
-  CheckCircle2,
   GraduationCap,
   Lightbulb,
   Mail,
-  PhoneCall,
   Shield,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
 
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { AuroraText } from "../magicui/aurora-text";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -209,9 +204,12 @@ export default function PreviewLanding() {
               Our Solution
             </h2>
             <p className="text-lg text-muted-foreground">
-              Bosein bridges this gap with a platform that connects startups
-              with academic researchers, creating a seamless Research as a
-              Service ecosystem.
+              <span className="text-gradient_indigo-purple font-semibold">
+                BoseIn{" "}
+              </span>{" "}
+              bridges this gap with a platform that connects startups with
+              academic researchers, creating a seamless Research as a Service
+              ecosystem.
             </p>
             <code className="bg-muted text-lg font-semibold italic text-muted-foreground">
               &quot;Accelerating research by reusing proven insights and
@@ -352,15 +350,19 @@ export default function PreviewLanding() {
           <div className="grid items-center gap-6 lg:grid-cols-2">
             <div className="space-y-4">
               <h2 className="text-4xl font-bold tracking-tighter dark:text-primary sm:text-3xl">
-                Ready to Transform Your Research Approach?
+                Help us Build the Future of R&D Tools.
               </h2>
               <p className="text-muted- text-lg dark:text-white">
-                Join BoseIn today to collaborate on real-world challenges.
+                Fill out our short survey to shape a web app with the features
+                you need most.
               </p>
             </div>
             <div className="flex flex-col justify-center gap-3 sm:flex-row lg:justify-end">
               <Button size="lg" className="hover:primary/80 sm:w-auto">
-                <Link href="https://docs.google.com/forms/d/1WPolnbnoZGLqolOui4c0DZL9sJHYRNTGZ1OtVpZKUAM/edit">
+                <Link
+                  target="_blank"
+                  href="https://docs.google.com/forms/d/1WPolnbnoZGLqolOui4c0DZL9sJHYRNTGZ1OtVpZKUAM/edit"
+                >
                   For Startups / Companies
                 </Link>
               </Button>
@@ -369,7 +371,10 @@ export default function PreviewLanding() {
                 size="lg"
                 className="bg-[#97ACBA] hover:bg-[#6c7981] sm:w-auto"
               >
-                <Link href="https://docs.google.com/forms/d/1_F_irxRsLVLIbGGd7l3KqrJTmXPVrO683OmTQK2sj9I/edit">
+                <Link
+                  target="_blank"
+                  href="https://docs.google.com/forms/d/1_F_irxRsLVLIbGGd7l3KqrJTmXPVrO683OmTQK2sj9I/edit"
+                >
                   For Academia / Researchers
                 </Link>
               </Button>
@@ -405,8 +410,11 @@ export default function PreviewLanding() {
             </h2>
             <p className="text-lg text-muted-foreground">
               Founded with a vision to establish India as a global research hub,
-              Bosein is committed to bridging the gap between academic
-              excellence and industry innovation.
+              <span className="text-gradient_indigo-purple font-semibold">
+                BoseIn{" "}
+              </span>
+              is committed to bridging the gap between academic excellence and
+              industry innovation.
             </p>
             <p className="text-lg text-muted-foreground">
               Our team combines expertise in research, technology, and business
@@ -514,22 +522,6 @@ export default function PreviewLanding() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {/* {formStatus && (
-                  <Alert
-                    className={`mb-6 ${formStatus.success ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"}`}
-                  >
-                    {formStatus.success ? (
-                      <CheckCircle2 className="h-4 w-4 text-green-600" />
-                    ) : (
-                      <AlertCircle className="h-4 w-4 text-red-600" />
-                    )}
-                    <AlertTitle>
-                      {formStatus.success ? "Success" : "Error"}
-                    </AlertTitle>
-                    <AlertDescription>{formStatus.message}</AlertDescription>
-                  </Alert>
-                )} */}
-
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     <div className="space-y-2">
